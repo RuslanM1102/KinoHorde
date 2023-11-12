@@ -6,6 +6,7 @@
     <Nullable>enable</Nullable>
     <ImplicitUsings>disable</ImplicitUsings>
     <UseWPF>true</UseWPF>
+    <Platforms>AnyCPU;x86</Platforms>
   </PropertyGroup>
 
   <ItemGroup>
@@ -22,9 +23,11 @@
     <PackageReference Include="ReactiveUI" Version="19.5.1" />
     <PackageReference Include="ReactiveUI.Fody" Version="19.5.1" />
     <PackageReference Include="ReactiveUI.WPF" Version="19.5.1" />
+    <PackageReference Include="supabase-csharp" Version="0.13.6" />
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Core\Styles\Icons\NavBar\" />
     <Folder Include="MVVM\Model\" />
   </ItemGroup>
 

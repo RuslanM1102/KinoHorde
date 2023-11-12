@@ -1,4 +1,7 @@
-﻿using System;
+﻿using DesktopApplication.Core.Database;
+using DesktopApplication.MVVM.ViewModel;
+using Supabase.Gotrue;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;

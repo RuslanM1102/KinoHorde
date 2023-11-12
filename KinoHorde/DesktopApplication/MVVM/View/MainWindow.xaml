@@ -3,9 +3,9 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:ext="clr-namespace:DesktopApplication.Core.Controls"
     xmlns:local="clr-namespace:DesktopApplication"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:view="clr-namespace:DesktopApplication.MVVM.View"
     xmlns:vms="clr-namespace:DesktopApplication.MVVM.ViewModel"
     Title="MainWindow"
     Width="1366"
@@ -29,7 +29,7 @@
         <DockPanel>
             <Border
                 Height="30"
-                Background="LightGray"
+                Background="{DynamicResource Thirdly}"
                 DockPanel.Dock="Top">
                 <Grid>
                     <Grid.ColumnDefinitions>
@@ -45,19 +45,19 @@
                             Command="{Binding MinimizeCommand}"
                             RenderOptions.BitmapScalingMode="Fant"
                             Style="{StaticResource ChromeButton}">
-                            <view:ColoredImage ImageSource="pack://application:,,,/../../Core/Styles/Icons/Bar/MinimizeIcon.png" Style="{StaticResource ChromeFillImage}" />
+                            <ext:ColoredImage ImageSource="pack://application:,,,/../../Core/Styles/Icons/Bar/MinimizeIcon.png" Style="{StaticResource ChromeFillImage}" />
                         </Button>
                         <Button
                             Command="{Binding MaximizeCommand}"
                             RenderOptions.BitmapScalingMode="Fant"
                             Style="{StaticResource ChromeButton}">
-                            <view:ColoredImage ImageSource="pack://application:,,,/../../Core/Styles/Icons/Bar/MaximizeIcon.png" Style="{StaticResource ChromeFillImage}" />
+                            <ext:ColoredImage ImageSource="pack://application:,,,/../../Core/Styles/Icons/Bar/MaximizeIcon.png" Style="{StaticResource ChromeFillImage}" />
                         </Button>
                         <Button
                             Command="{Binding CloseCommand}"
                             RenderOptions.BitmapScalingMode="Fant"
                             Style="{StaticResource ChromeButton}">
-                            <view:ColoredImage ImageSource="pack://application:,,,/../../Core/Styles/Icons/Bar/CloseIcon.png" Style="{StaticResource ChromeFillImage}" />
+                            <ext:ColoredImage ImageSource="pack://application:,,,/../../Core/Styles/Icons/Bar/CloseIcon.png" Style="{StaticResource ChromeFillImage}" />
                         </Button>
                     </StackPanel>
                 </Grid>
@@ -65,7 +65,7 @@
             <Border
                 x:Name="NavigationBar"
                 Width="100"
-                Background="CadetBlue"
+                Background="{DynamicResource Thirdly}"
                 DockPanel.Dock="Left">
                 <Grid>
                     <StackPanel>
