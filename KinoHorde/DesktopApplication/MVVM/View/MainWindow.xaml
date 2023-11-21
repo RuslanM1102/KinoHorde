@@ -42,23 +42,20 @@
                         Orientation="Horizontal"
                         WindowChrome.IsHitTestVisibleInChrome="True">
                         <Button
+                            ext:Extensions.ImageSource="pack://application:,,,/../../Core/Styles/Icons/Bar/MinimizeIcon.png"
                             Command="{Binding MinimizeCommand}"
                             RenderOptions.BitmapScalingMode="Fant"
-                            Style="{StaticResource ChromeButton}">
-                            <ext:ColoredImage ImageSource="pack://application:,,,/../../Core/Styles/Icons/Bar/MinimizeIcon.png" Style="{StaticResource ChromeFillImage}" />
-                        </Button>
+                            Style="{StaticResource ChromeButton}" />
                         <Button
+                            ext:Extensions.ImageSource="pack://application:,,,/../../Core/Styles/Icons/Bar/MaximizeIcon.png"
                             Command="{Binding MaximizeCommand}"
                             RenderOptions.BitmapScalingMode="Fant"
-                            Style="{StaticResource ChromeButton}">
-                            <ext:ColoredImage ImageSource="pack://application:,,,/../../Core/Styles/Icons/Bar/MaximizeIcon.png" Style="{StaticResource ChromeFillImage}" />
-                        </Button>
+                            Style="{StaticResource ChromeButton}" />
                         <Button
+                            ext:Extensions.ImageSource="pack://application:,,,/../../Core/Styles/Icons/Bar/CloseIcon.png"
                             Command="{Binding CloseCommand}"
                             RenderOptions.BitmapScalingMode="Fant"
-                            Style="{StaticResource ChromeButton}">
-                            <ext:ColoredImage ImageSource="pack://application:,,,/../../Core/Styles/Icons/Bar/CloseIcon.png" Style="{StaticResource ChromeFillImage}" />
-                        </Button>
+                            Style="{StaticResource ChromeButton}" />
                     </StackPanel>
                 </Grid>
             </Border>
@@ -71,25 +68,29 @@
                     <StackPanel>
                         <RadioButton
                             Height="{Binding ElementName=NavigationBar, Path=Width}"
+                            ext:Extensions.ImageSource="pack://application:,,,/../../Core/Styles/Icons/NavBar/Profile.png"
                             Command="{Binding ProfileCommand}"
-                            Content="Profile"
                             GroupName="Views"
                             IsChecked="True"
                             Style="{StaticResource SelectPageButton}" />
                         <RadioButton
                             Height="{Binding ElementName=NavigationBar, Path=Width}"
+                            ext:Extensions.ImageSource="pack://application:,,,/../../Core/Styles/Icons/NavBar/Search.png"
+                            Command="{Binding SearchCommand}"
+                            GroupName="Views"
+                            Style="{StaticResource SelectPageButton}" />
+                        <!--<RadioButton
+                            Height="{Binding ElementName=NavigationBar, Path=Width}"
+                            ext:Extensions.ImageSource="pack://application:,,,/../../Core/Styles/Icons/NavBar/Friends.png"
                             Command="{Binding FriendsCommand}"
                             Content="Friends"
                             GroupName="Views"
-                            Style="{StaticResource SelectPageButton}" />
+                            Style="{StaticResource SelectPageButton}" />-->
                         <RadioButton
                             Height="{Binding ElementName=NavigationBar, Path=Width}"
+                            ext:Extensions.ImageSource="pack://application:,,,/../../Core/Styles/Icons/NavBar/Groups.png"
                             Command="{Binding GroupsCommand}"
                             Content="Groups"
-                            GroupName="Views"
-                            Style="{StaticResource SelectPageButton}" />
-                        <RadioButton
-                            Height="{Binding ElementName=NavigationBar, Path=Width}"
                             GroupName="Views"
                             Style="{StaticResource SelectPageButton}" />
                         <RadioButton

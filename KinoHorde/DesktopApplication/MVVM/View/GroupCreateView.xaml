@@ -1,0 +1,64 @@
+﻿<Page
+    x:Class="DesktopApplication.MVVM.View.GroupCreateView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:DesktopApplication.MVVM.View"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    Title="GroupCreateView"
+    d:DesignHeight="640"
+    d:DesignWidth="1100"
+    mc:Ignorable="d">
+
+    <Grid Background="{DynamicResource Secondary}">
+        <StackPanel
+            x:Name="mainPanel"
+            Width="400"
+            VerticalAlignment="Center">
+            <StackPanel Margin="5" Orientation="Horizontal">
+                <Border
+                    Height="50"
+                    Background="{DynamicResource Primary}"
+                    CornerRadius="10">
+                    <TextBlock
+                        Background="Transparent"
+                        FontSize="30"
+                        Style="{DynamicResource AccentSearchText}"
+                        Text="Название" />
+                </Border>
+
+                <TextBox
+                    Width="200"
+                    Height="50"
+                    Style="{DynamicResource SearchBox}"
+                    Text="{Binding Name}" />
+            </StackPanel>
+
+            <StackPanel Margin="5" Orientation="Horizontal">
+                <Border
+                    Height="50"
+                    Background="{DynamicResource Primary}"
+                    CornerRadius="10">
+                    <TextBlock
+                        Background="Transparent"
+                        FontSize="30"
+                        Style="{DynamicResource AccentSearchText}"
+                        Text="Пароль" />
+                </Border>
+                <TextBox
+                    Width="200"
+                    Height="50"
+                    Style="{DynamicResource SearchBox}"
+                    Text="{Binding Password}" />
+            </StackPanel>
+
+            <Button
+                Height="50"
+                Command="{Binding CreateCommand}"
+                FontSize="30"
+                Style="{DynamicResource SearchButton}">
+                Создать группу
+            </Button>
+        </StackPanel>
+    </Grid>
+</Page>

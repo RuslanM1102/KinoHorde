@@ -9,11 +9,21 @@
     d:DesignWidth="400"
     mc:Ignorable="d">
     <Grid>
-        <Image x:Name="InnerImage" Source="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:ColoredImage}}, Path=ImageSource}" />
-        <Rectangle x:Name="InnerRectangle" Fill="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:ColoredImage}}, Path=ImageColor}">
-            <Rectangle.OpacityMask>
-                <ImageBrush ImageSource="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:ColoredImage}}, Path=ImageSource}" />
-            </Rectangle.OpacityMask>
-        </Rectangle>
+        <Viewbox Stretch="Uniform">
+            <Grid>
+                <Image
+                    x:Name="InnerImage"
+                    RenderOptions.BitmapScalingMode="Fant"
+                    Source="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:ColoredImage}}, Path=ImageSource}" />
+                <Rectangle
+                    x:Name="InnerRectangle"
+                    Fill="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:ColoredImage}}, Path=ImageColor}"
+                    RenderOptions.BitmapScalingMode="Fant">
+                    <Rectangle.OpacityMask>
+                        <ImageBrush ImageSource="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:ColoredImage}}, Path=ImageSource}" />
+                    </Rectangle.OpacityMask>
+                </Rectangle>
+            </Grid>
+        </Viewbox>
     </Grid>
 </UserControl>

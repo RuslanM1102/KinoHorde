@@ -12,9 +12,4 @@
     <PackageReference Include="BenchmarkDotNet" Version="0.13.8" />
     <PackageReference Include="supabase-csharp" Version="0.13.6" />
   </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\KinopoiskParser\KinopoiskParser.csproj" />
-  </ItemGroup>
-
 </Project>

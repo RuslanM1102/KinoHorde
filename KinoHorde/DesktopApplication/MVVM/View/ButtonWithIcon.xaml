@@ -3,9 +3,9 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:ext="clr-namespace:DesktopApplication.Core.Controls">
     <Style
-        x:Key="SelectPageButton"
-        BasedOn="{StaticResource {x:Type ToggleButton}}"
-        TargetType="{x:Type RadioButton}">
+        x:Key="ButtonWithIcon"
+        BasedOn="{StaticResource {x:Type Button}}"
+        TargetType="{x:Type Button}">
 
         <Setter Property="Background" Value="{StaticResource Primary}" />
         <Setter Property="Foreground" Value="{StaticResource Secondary}" />
@@ -13,14 +13,13 @@
         <Setter Property="BorderThickness" Value="1" />
         <Setter Property="Template">
             <Setter.Value>
-                <ControlTemplate TargetType="{x:Type RadioButton}">
+                <ControlTemplate TargetType="{x:Type Button}">
                     <Border
                         Padding="12"
                         Background="{TemplateBinding Background}"
                         BorderBrush="{TemplateBinding BorderBrush}"
                         BorderThickness="{TemplateBinding BorderThickness}">
                         <ext:ColoredImage ImageColor="{Binding Path=Foreground, RelativeSource={RelativeSource TemplatedParent}}" ImageSource="{Binding Path=(ext:Extensions.ImageSource), RelativeSource={RelativeSource TemplatedParent}}" />
-
                     </Border>
                 </ControlTemplate>
             </Setter.Value>
@@ -31,12 +30,7 @@
                 <Setter Property="Background" Value="{StaticResource Thirdly}" />
                 <Setter Property="BorderThickness" Value="0" />
             </Trigger>
-
-            <Trigger Property="IsChecked" Value="True">
-                <Setter Property="Foreground" Value="{StaticResource Accent}" />
-                <Setter Property="BorderBrush" Value="{StaticResource Accent}" />
-                <Setter Property="BorderThickness" Value="2" />
-            </Trigger>
         </Style.Triggers>
     </Style>
+
 </ResourceDictionary>

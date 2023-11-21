@@ -1,0 +1,53 @@
+﻿<Page
+    x:Class="DesktopApplication.MVVM.View.GroupView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:DesktopApplication.MVVM.View"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    Title="GroupView"
+    d:DesignHeight="640"
+    d:DesignWidth="1100"
+    mc:Ignorable="d">
+    <DockPanel>
+        <Border
+            Height="50"
+            Background="{DynamicResource Primary}"
+            BorderBrush="{DynamicResource Accent}"
+            BorderThickness="0,5,0,0"
+            DockPanel.Dock="Bottom">
+            <UniformGrid Columns="4">
+                <!--<TextBox FontSize="20" Style="{DynamicResource SearchBox}" />
+                <Button
+                    Content="Найти"
+                    FontSize="20"
+                    Style="{DynamicResource SearchButton}" />
+                <Grid />-->
+                <Grid />
+                <Grid />
+                <Grid />
+                <Button
+                    Content="Покинуть группу"
+                    FontSize="20"
+                    Style="{DynamicResource SearchButton}" />
+            </UniformGrid>
+        </Border>
+        <Grid>
+            <ListView
+                Padding="-1"
+                Background="{DynamicResource Thirdly}"
+                BorderThickness="0"
+                ItemContainerStyle="{DynamicResource MovieItem}"
+                ItemsSource="{Binding Movies}"
+                ScrollViewer.CanContentScroll="False"
+                ScrollViewer.HorizontalScrollBarVisibility="Auto"
+                ScrollViewer.VerticalScrollBarVisibility="Disabled">
+                <ListView.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <StackPanel Orientation="Horizontal" />
+                    </ItemsPanelTemplate>
+                </ListView.ItemsPanel>
+            </ListView>
+        </Grid>
+    </DockPanel>
+</Page>

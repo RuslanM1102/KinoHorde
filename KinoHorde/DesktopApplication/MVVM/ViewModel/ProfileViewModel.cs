@@ -1,48 +1,35 @@
-﻿using DesktopApplication.Core.Database;
+﻿using Microsoft.Extensions.DependencyInjection;
 using ReactiveUI;
-using ReactiveUI.Fody.Helpers;
-using Supabase.Gotrue;
+using Supabase;
+using Postgrest;
 using System;
+using DesktopApplication.Core.Database;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
-using System.Net;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Threading;
+using ReactiveUI.Fody.Helpers;
 
 namespace DesktopApplication.MVVM.ViewModel
 {
     class ProfileViewModel : ReactiveObject
     {
-        public Action AuthSuccessed { get; set; }
-        public IReactiveCommand AuthCommand { get; set; }
+        private Supabase.Client _client = ((App)App.Current).AppHost!.Services.GetRequiredService<Supabase.Client>();
+        public Action LogOuted { get; set; }
+        public IReactiveCommand LogOutCommand { get; set; }
+        [Reactive] 
+        public User User { get; set; }
         public ProfileViewModel()
         {
-            AuthCommand = ReactiveCommand.CreateFromTask(async () =>
+            LogOutCommand = ReactiveCommand.CreateFromTask(async () =>
             {
-                //var authState = await SupabaseContext.Client.Auth.SignIn(Constants.Provider.Discord,
-                //new SignInOptions
-                //{
-                //    FlowType = Constants.OAuthFlowType.PKCE,
-                //});
-
-                //string code = string.Empty;
-
-                //Process.Start(new ProcessStartInfo { FileName = authState.Uri.AbsoluteUri, UseShellExecute = true });
-                //using (HttpListener listener = new HttpListener())
-                //{
-                //    listener.Prefixes.Add("http://localhost:3001/");
-                //    listener.Start();
-                //    var context = await listener.GetContextAsync();
-                //    code = context.Request.QueryString["code"];
-                //    listener.Stop();
-                //}
-
-                //await SupabaseContext.Client.Auth.ExchangeCodeForSession(authState.PKCEVerifier, code);
-                AuthSuccessed?.Invoke();
+                _client.Auth.SignOut();
+                LogOuted?.Invoke();
             });
+        }
+
+        public async void SetUser()
+        {
+            var response = await _client.From<User>().Where(x => x.IdSp == _client.Auth.CurrentUser!.Id).Get();
+            User = response.Model;
         }
     }
 }

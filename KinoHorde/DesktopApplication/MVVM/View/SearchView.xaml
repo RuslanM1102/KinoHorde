@@ -1,0 +1,99 @@
+﻿<Page
+    x:Class="DesktopApplication.MVVM.View.SearchView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:DesktopApplication.MVVM.View"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    Title="SearchView"
+    d:DesignHeight="690"
+    d:DesignWidth="1266"
+    mc:Ignorable="d">
+    <Border>
+        <DockPanel>
+            <Border
+                Height="50"
+                Background="{DynamicResource Primary}"
+                BorderBrush="{DynamicResource Accent}"
+                BorderThickness="0,0,0,5"
+                DockPanel.Dock="Top">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition />
+                        <ColumnDefinition Width="200" />
+                    </Grid.ColumnDefinitions>
+                    <TextBox Style="{DynamicResource SearchBox}" Text="{Binding SearchName, Mode=TwoWay}" />
+                    <Button
+                        Grid.Column="1"
+                        Command="{Binding SearchCommand}"
+                        Content="Найти"
+                        FontSize="20"
+                        Style="{DynamicResource SearchButton}" />
+                </Grid>
+            </Border>
+
+            <Border
+                Height="50"
+                Background="{DynamicResource Primary}"
+                BorderBrush="{DynamicResource Accent}"
+                BorderThickness="0,5,0,0"
+                DockPanel.Dock="Bottom">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="200" />
+                        <ColumnDefinition />
+                        <ColumnDefinition Width="200" />
+                    </Grid.ColumnDefinitions>
+                    <TextBlock
+                        Grid.Column="2"
+                        FontSize="28"
+                        Style="{DynamicResource AccentSearchText}"
+                        Text="{Binding MovieCount, StringFormat={}Найдено: {0}}" />
+                    <StackPanel
+                        Grid.Column="1"
+                        HorizontalAlignment="Center"
+                        Orientation="Horizontal">
+                        <Button
+                            Command="{Binding PreviousPageCommand}"
+                            Content="&lt;"
+                            FontSize="25"
+                            Style="{DynamicResource SearchButton}" />
+                        <TextBlock
+                            FontSize="28"
+                            Style="{DynamicResource AccentSearchText}"
+                            Text="{Binding CurrentPage}" />
+                        <Button
+                            Command="{Binding NextPageCommand}"
+                            Content="&gt;"
+                            FontSize="25"
+                            Style="{DynamicResource SearchButton}" />
+                    </StackPanel>
+
+                    <ComboBox
+                        Background="{DynamicResource Primary}"
+                        Foreground="{DynamicResource Accent}"
+                        ItemContainerStyle="{DynamicResource ComboBoxItemStyle}"
+                        ItemsSource="{Binding CurrentUserGroups}"
+                        SelectedValue="{Binding SelectedGroup}" />
+                </Grid>
+            </Border>
+
+            <ListView
+                Padding="-1"
+                Background="{DynamicResource Thirdly}"
+                BorderThickness="0"
+                ItemContainerStyle="{DynamicResource ParsedMovieItem}"
+                ItemsSource="{Binding Films}"
+                ScrollViewer.CanContentScroll="False"
+                ScrollViewer.HorizontalScrollBarVisibility="Hidden"
+                ScrollViewer.VerticalScrollBarVisibility="Disabled"
+                SelectedItem="{Binding SelectedGroup}">
+                <ListView.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <UniformGrid Columns="1" />
+                    </ItemsPanelTemplate>
+                </ListView.ItemsPanel>
+            </ListView>
+        </DockPanel>
+    </Border>
+</Page>

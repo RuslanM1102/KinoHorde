@@ -3,15 +3,21 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:view="clr-namespace:DesktopApplication.MVVM.View"
-    xmlns:vms="clr-namespace:DesktopApplication.MVVM.ViewModel"
-    StartupUri="MVVM/View/MainWindow.xaml">
+    xmlns:vms="clr-namespace:DesktopApplication.MVVM.ViewModel">
     <Application.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="Core/Styles/Dictionaries/DarkColors.xaml" />
                 <ResourceDictionary Source="Core/Styles/Dictionaries/ChromeElements.xaml" />
                 <ResourceDictionary Source="Core/Styles/Dictionaries/NavigationElements.xaml" />
+                <ResourceDictionary Source="Core/Styles/Dictionaries/GroupsElements.xaml" />
+                <ResourceDictionary Source="Core/Styles/Dictionaries/SearchList.xaml" />
+                <ResourceDictionary Source="Core/Styles/Dictionaries/SearchElements.xaml" />
             </ResourceDictionary.MergedDictionaries>
+
+            <DataTemplate DataType="{x:Type vms:AuthViewModel}">
+                <view:AuthView />
+            </DataTemplate>
 
             <DataTemplate DataType="{x:Type vms:ProfileViewModel}">
                 <view:ProfileView />
@@ -23,6 +29,26 @@
 
             <DataTemplate DataType="{x:Type vms:GroupsViewModel}">
                 <view:GroupsView />
+            </DataTemplate>
+
+            <DataTemplate DataType="{x:Type vms:SearchViewModel}">
+                <view:SearchView />
+            </DataTemplate>
+
+            <DataTemplate DataType="{x:Type vms:GroupCollectionViewModel}">
+                <view:GroupCollectionView />
+            </DataTemplate>
+
+            <DataTemplate DataType="{x:Type vms:GroupViewModel}">
+                <view:GroupView />
+            </DataTemplate>
+
+            <DataTemplate DataType="{x:Type vms:GroupJoinViewModel}">
+                <view:GroupJoinView />
+            </DataTemplate>
+
+            <DataTemplate DataType="{x:Type vms:GroupCreateViewModel}">
+                <view:GroupCreateView />
             </DataTemplate>
         </ResourceDictionary>
     </Application.Resources>
