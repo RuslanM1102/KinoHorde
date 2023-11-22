@@ -1,4 +1,5 @@
 ﻿using DesktopApplication.Core.Database;
+using Microsoft.Extensions.DependencyInjection;
 using ReactiveUI;
 using ReactiveUI.Fody.Helpers;
 using System;
@@ -11,6 +12,8 @@ namespace DesktopApplication.MVVM.ViewModel
 {
     class GroupsViewModel : ReactiveObject
     {
+
+        private Supabase.Client _client = ((App)App.Current).AppHost!.Services.GetRequiredService<Supabase.Client>();
         public Action OnSelected { get; set; }
         [Reactive] public object? CurrentView { get; set; }
         public GroupCollectionViewModel? CollectionView { get; set; }
@@ -20,6 +23,8 @@ namespace DesktopApplication.MVVM.ViewModel
         public IReactiveCommand? CollectionCommand { get; set; }
         public IReactiveCommand? CreateCommand { get; set; }
         public IReactiveCommand? JoinCommand { get; set; }
+        public IReactiveCommand LeaveCommand { get; set; }
+
 
         public GroupsViewModel()
         {
@@ -48,12 +53,28 @@ namespace DesktopApplication.MVVM.ViewModel
             JoinCommand = ReactiveCommand.Create(() => CurrentView = JoinView);
 
             CurrentView = CollectionView;
-
+            
             OnSelected += () =>
             {
                 CollectionView.SetGroups();
                 CurrentView = CollectionView;
             };
+
+            LeaveCommand = ReactiveCommand.Create<object>(async (arg) =>
+            {
+                if(arg is Group group)
+                {
+                    var response = await _client.From<User>().Where(x => x.IdSp == _client.Auth.CurrentUser!.Id).Get();
+                    User user = response.Model;
+
+                    await _client.From<UserGroup>()
+                        .Where(x => x.UserId == user.Id)
+                        .Where(x => x.GroupId == group.Id)
+                        .Delete();
+                }
+
+                OnSelected?.Invoke();
+            });
         }
     }
 }

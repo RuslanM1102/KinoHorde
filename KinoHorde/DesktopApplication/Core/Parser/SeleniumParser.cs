@@ -40,7 +40,7 @@ namespace DesktopApplication.Core.Parser
             _options.EnableMobileEmulation("Samsung Galaxy S8+");
 
             _service = ChromeDriverService.CreateDefaultService();
-            //_service.HideCommandPromptWindow = true;
+            _service.HideCommandPromptWindow = true;
             _driver = new ChromeDriver(_service, _options);
             _driver.Navigate().GoToUrl($"https://ru.kinorium.com");
         }

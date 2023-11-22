@@ -35,6 +35,7 @@ namespace DesktopApplication.MVVM.ViewModel
         public IReactiveCommand? FriendsCommand { get; set; }
         public IReactiveCommand? GroupsCommand { get; set; }
         public IReactiveCommand? SearchCommand { get; set; }
+        public IReactiveCommand? HelpCommand { get; set; }
         #endregion
 
         [Reactive] public bool IsAuth { get; private set; }
@@ -74,6 +75,19 @@ namespace DesktopApplication.MVVM.ViewModel
                 SearchVM.UpdateGroups();
                 CurrentView = SearchVM;
             }, isAuth);
+
+            HelpCommand = ReactiveCommand.Create(() =>
+            {
+                MessageBox.Show(
+                    @"Для начала работы в программе необходимо авторизоваться через платформу Discord.
+После чего во вкладке 'Группы' необходимо присоединиться к существующей группе или создать свою.
+
+Внутри группы можно будет удалить кинопродукт из неё, поменять статус между 'В планах' и 'Просмотрено', а также удалить его.
+                    
+Для добавления кинопродукта в список группы необходимо зайти во вкладку 'Поиск', найти его через поиск и, выбрав в нижнем левом углу нужную группу, нажать кнопку 'Добавить'.
+                    
+                ");
+            });
         }
 
         private void InitViewModels()

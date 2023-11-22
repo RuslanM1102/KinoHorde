@@ -75,6 +75,13 @@
                             Style="{StaticResource SelectPageButton}" />
                         <RadioButton
                             Height="{Binding ElementName=NavigationBar, Path=Width}"
+                            ext:Extensions.ImageSource="pack://application:,,,/../../Core/Styles/Icons/NavBar/Groups.png"
+                            Command="{Binding GroupsCommand}"
+                            Content="Groups"
+                            GroupName="Views"
+                            Style="{StaticResource SelectPageButton}" />
+                        <RadioButton
+                            Height="{Binding ElementName=NavigationBar, Path=Width}"
                             ext:Extensions.ImageSource="pack://application:,,,/../../Core/Styles/Icons/NavBar/Search.png"
                             Command="{Binding SearchCommand}"
                             GroupName="Views"
@@ -86,27 +93,19 @@
                             Content="Friends"
                             GroupName="Views"
                             Style="{StaticResource SelectPageButton}" />-->
-                        <RadioButton
-                            Height="{Binding ElementName=NavigationBar, Path=Width}"
-                            ext:Extensions.ImageSource="pack://application:,,,/../../Core/Styles/Icons/NavBar/Groups.png"
-                            Command="{Binding GroupsCommand}"
-                            Content="Groups"
-                            GroupName="Views"
-                            Style="{StaticResource SelectPageButton}" />
-                        <RadioButton
-                            Height="{Binding ElementName=NavigationBar, Path=Width}"
-                            GroupName="Views"
-                            Style="{StaticResource SelectPageButton}" />
-                        <RadioButton
-                            Height="{Binding ElementName=NavigationBar, Path=Width}"
-                            GroupName="Views"
-                            Style="{StaticResource SelectPageButton}" />
+                        <Button
+                            Command="{Binding HelpCommand}"
+                            Content="Справка"
+                            Style="{DynamicResource SearchButton}" />
                     </StackPanel>
                 </Grid>
             </Border>
             <Border>
                 <Grid>
-                    <Frame Content="{Binding CurrentView}" NavigationUIVisibility="Hidden" />
+                    <Frame
+                        x:Name="MainFrame"
+                        Content="{Binding CurrentView}"
+                        NavigationUIVisibility="Hidden" />
                 </Grid>
             </Border>
         </DockPanel>

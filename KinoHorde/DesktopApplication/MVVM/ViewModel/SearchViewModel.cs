@@ -101,6 +101,7 @@ namespace DesktopApplication.MVVM.ViewModel
                     movieGroup.StatusId = 1;
                     movieGroup.UserId = userResponse.Model.Id;
                     await _client.From<MovieGroups>().Insert(movieGroup);
+                    MessageBox.Show("Фильм добавлен");
                 }
             });
         }

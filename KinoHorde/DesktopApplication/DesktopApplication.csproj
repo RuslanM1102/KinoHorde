@@ -7,6 +7,8 @@
     <ImplicitUsings>disable</ImplicitUsings>
     <UseWPF>true</UseWPF>
     <Platforms>AnyCPU;x86</Platforms>
+    <PackageIcon></PackageIcon>
+    <ApplicationIcon>Core\Styles\Icons\AppIcon.ico</ApplicationIcon>
   </PropertyGroup>
 
   <ItemGroup>
@@ -18,6 +20,10 @@
     <None Remove="Core\Styles\Icons\NavBar\Profile.png" />
     <None Remove="Core\Styles\Icons\NavBar\Search.png" />
     <None Remove="Core\Styles\Icons\NoImage.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Core\Styles\Icons\AppIcon.ico" />
   </ItemGroup>
 
   <ItemGroup>

@@ -23,10 +23,14 @@
                     FontSize="20"
                     Style="{DynamicResource SearchButton}" />
                 <Grid />-->
-                <Grid />
+                <Viewbox>
+                    <TextBlock Style="{DynamicResource AccentSearchText}" Text="{Binding Group.Id, StringFormat={}ID группы: {0}}" />
+                </Viewbox>
                 <Grid />
                 <Grid />
                 <Button
+                    Command="{Binding ElementName=GroupsFrame, Path=DataContext.LeaveCommand}"
+                    CommandParameter="{Binding Group}"
                     Content="Покинуть группу"
                     FontSize="20"
                     Style="{DynamicResource SearchButton}" />
@@ -34,6 +38,7 @@
         </Border>
         <Grid>
             <ListView
+                x:Name="GroupsList"
                 Padding="-1"
                 Background="{DynamicResource Thirdly}"
                 BorderThickness="0"
