@@ -13,11 +13,11 @@
         <DockPanel>
             <Border
                 Height="50"
-                Background="{DynamicResource Primary}"
+                Background="{DynamicResource Secondary}"
                 BorderBrush="{DynamicResource Accent}"
                 BorderThickness="0,0,0,5"
                 DockPanel.Dock="Top">
-                <UniformGrid Columns="3">
+                <UniformGrid Columns="2">
                     <Button
                         Name="CollectionGroupButton"
                         Command="{Binding CollectionCommand}"
@@ -29,11 +29,11 @@
                         Content="Создать группу"
                         FontSize="20"
                         Style="{DynamicResource SearchButton}" />
-                    <Button
+                    <!--<Button
                         Command="{Binding JoinCommand}"
                         Content="Присоединиться к группе"
                         FontSize="20"
-                        Style="{DynamicResource SearchButton}" />
+                        Style="{DynamicResource SearchButton}" />-->
                 </UniformGrid>
             </Border>
             <Frame

@@ -1,4 +1,5 @@
 ﻿using DesktopApplication.Core.Database;
+using DesktopApplication.MVVM.Model;
 using Microsoft.Extensions.DependencyInjection;
 using Postgrest;
 using ReactiveUI;
@@ -13,27 +14,27 @@ namespace DesktopApplication.MVVM.ViewModel
 {
     internal class GroupCreateViewModel
     {
-        private Supabase.Client _client = ((App)App.Current).AppHost!.Services.GetRequiredService<Supabase.Client>();
+        private readonly Supabase.Client _client;
+        private readonly UserModel _user;
         public Action? OnCreated { get; set; }
         public string? Name { get; set; }
-        public string? Password { get; set; }
         public IReactiveCommand? CreateCommand { get; set; }
 
-        public GroupCreateViewModel()
+        public GroupCreateViewModel(Supabase.Client client, UserModel user)
         {
+            _client = client;
+            _user = user;
             CreateCommand = ReactiveCommand.CreateFromTask(async () =>
             {
                 try
                 {
                     Group group = new Group();
                     group.Name = Name;
-                    group.Password = Password;
                     var groupResponse = await _client.From<Group>().Insert(group, new QueryOptions { Returning = ReturnType.Representation });
 
                     var userGroup = new UserGroup();
-                    var userResponse = await _client.From<User>().Where(x => x.IdSp == _client.Auth.CurrentUser!.Id).Get();
 
-                    userGroup.UserId = userResponse.Model.Id;
+                    userGroup.UserId = _user.UserData.Id;
                     userGroup.GroupId = groupResponse.Model.Id;
                     userGroup.IsOwner = true;
 

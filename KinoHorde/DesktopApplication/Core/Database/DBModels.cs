@@ -1,10 +1,13 @@
-﻿using Postgrest.Attributes;
+﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
+using Postgrest.Attributes;
 using Postgrest.Models;
 using ReactiveUI;
 using ReactiveUI.Fody.Helpers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -14,9 +17,7 @@ namespace DesktopApplication.Core.Database
     public class User : BaseModel
     {
         [PrimaryKey("id")]
-        public int Id { get; set; }
-        [PrimaryKey("sp_id")]
-        public string IdSp { get; set; }
+        public string Id { get; set; }
         [Column("nickname")]
         public string Nickname { get; set; }
         [Column("image_url")]
@@ -30,9 +31,6 @@ namespace DesktopApplication.Core.Database
         public int Id { get; set; }
         [Column("name")]
         public string Name { get; set; }
-        [Column("password")]
-        public string Password { get; set; }
-
         public override string ToString()
         {
             return Name;
@@ -43,7 +41,7 @@ namespace DesktopApplication.Core.Database
     public class UserGroup : BaseModel
     {
         [Column("user_id")]
-        public int UserId { get; set; }
+        public string UserId { get; set; }
         [Column("group_id")]
         public int GroupId { get; set; }
         [Column("is_owner")]
@@ -76,9 +74,20 @@ namespace DesktopApplication.Core.Database
         public int MovieId { get; set; }
         [Column("group_id")]
         public int GroupId { get; set; }
-        [Column("status_id")]
-        public int StatusId { get; set; }
+        [Column("status")]
+        public MovieStatus Status { get; set; }
         [Column("user_id")]
-        public int UserId { get; set; }
+        public string UserId { get; set; }
+    }
+
+    [Table("friends")]
+    public class Friends : BaseModel
+    {
+        [PrimaryKey("user_id", shouldInsert:true)]
+        public string UserId { get; set; }
+        [PrimaryKey("friend_id", shouldInsert: true)]
+        public string FriendId { get; set; }
+        [Column("is_accepted")]
+        public bool IsAccepted { get; set; }
     }
 }

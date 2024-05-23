@@ -8,12 +8,17 @@
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="Core/Styles/Dictionaries/DarkColors.xaml" />
+                <ResourceDictionary Source="Core/Styles/Dictionaries/CustomCombobox.xaml" />
+                <ResourceDictionary Source="Core/Styles/Dictionaries/CustomScrollBar.xaml" />
+                <ResourceDictionary Source="Core/Styles/Dictionaries/TextBlockStyle.xaml" />
                 <ResourceDictionary Source="Core/Styles/Dictionaries/ChromeElements.xaml" />
                 <ResourceDictionary Source="Core/Styles/Dictionaries/NavigationElements.xaml" />
                 <ResourceDictionary Source="Core/Styles/Dictionaries/GroupsElements.xaml" />
                 <ResourceDictionary Source="Core/Styles/Dictionaries/SearchList.xaml" />
                 <ResourceDictionary Source="Core/Styles/Dictionaries/SearchElements.xaml" />
+                <ResourceDictionary Source="Core/Styles/Dictionaries/FriendsElements.xaml" />
             </ResourceDictionary.MergedDictionaries>
+
 
             <DataTemplate DataType="{x:Type vms:AuthViewModel}">
                 <view:AuthView />

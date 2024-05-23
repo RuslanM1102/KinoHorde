@@ -9,10 +9,181 @@
     d:DesignHeight="690"
     d:DesignWidth="1266"
     mc:Ignorable="d">
+    <Border>
+        <Grid Background="{DynamicResource Secondary}">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+            <DockPanel Grid.Column="0" LastChildFill="True">
+                <TextBlock
+                    DockPanel.Dock="Top"
+                    Style="{DynamicResource Text}"
+                    Text="Друзья:" />
 
-    <Grid Background="LightSlateGray">
-        <TextBlock>
-            Friends
-        </TextBlock>
-    </Grid>
+                <Grid DockPanel.Dock="Bottom">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="2*" />
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+                    <ComboBox
+                        Height="40"
+                        Margin="5,0,2,3"
+                        VerticalAlignment="Bottom"
+                        ItemsSource="{Binding CurrentUserGroups}"
+                        SelectedItem="{Binding SelectedGroup}"
+                        Style="{DynamicResource ComboBoxFlatStyle}" />
+                    <Button
+                        Grid.Column="1"
+                        Height="40"
+                        VerticalAlignment="Bottom"
+                        Command="{Binding InviteFriendCommand}"
+                        Content="Добавить в группу"
+                        FontSize="18"
+                        Style="{DynamicResource SearchButton}" />
+                </Grid>
+                <ListView
+                    Padding="-1"
+                    Background="{DynamicResource Thirdly}"
+                    BorderThickness="0"
+                    ItemContainerStyle="{DynamicResource FriendProfileItem}"
+                    ItemsSource="{Binding FriendsProfiles}"
+                    ScrollViewer.CanContentScroll="True"
+                    ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                    SelectedItem="{Binding SelectedFriend}">
+                    <ListView.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <UniformGrid Columns="1" />
+                        </ItemsPanelTemplate>
+                    </ListView.ItemsPanel>
+                </ListView>
+            </DockPanel>
+            <Grid Grid.Column="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition />
+                    <RowDefinition />
+                </Grid.RowDefinitions>
+                <DockPanel LastChildFill="True">
+                    <TextBlock
+                        DockPanel.Dock="Top"
+                        Style="{DynamicResource Text}"
+                        Text="Поиск:" />
+                    <Grid DockPanel.Dock="Top">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="2*" />
+                            <ColumnDefinition />
+                        </Grid.ColumnDefinitions>
+                        <TextBox
+                            Height="40"
+                            VerticalAlignment="Top"
+                            HorizontalContentAlignment="Center"
+                            VerticalContentAlignment="Center"
+                            DockPanel.Dock="Top"
+                            Style="{DynamicResource SearchBox}"
+                            Text="{Binding SearchString, Mode=TwoWay}" />
+                        <Button
+                            Grid.Column="1"
+                            Height="40"
+                            VerticalAlignment="Top"
+                            Command="{Binding SearchFriendsCommand}"
+                            Content="Найти"
+                            FontSize="24"
+                            Style="{DynamicResource SearchButton}" />
+                    </Grid>
+
+
+                    <Border
+                        Margin="20"
+                        Background="{DynamicResource Thirdly}"
+                        CornerRadius="7">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition />
+                                <RowDefinition />
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition />
+                                <ColumnDefinition Width="2*" />
+                            </Grid.ColumnDefinitions>
+                            <WrapPanel
+                                Grid.RowSpan="2"
+                                Margin="20,5,5,5"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center">
+                                <Image
+                                    x:Name="ProfilePicture"
+                                    MaxHeight="180"
+                                    DataContext="{Binding FindedFriend}"
+                                    RenderOptions.BitmapScalingMode="Fant"
+                                    Source="{Binding ImageUrl}" />
+                                <WrapPanel.OpacityMask>
+                                    <VisualBrush>
+                                        <VisualBrush.Visual>
+                                            <Border
+                                                Width="{Binding ElementName=ProfilePicture, Path=ActualWidth}"
+                                                Height="{Binding ElementName=ProfilePicture, Path=ActualHeight}"
+                                                Background="White"
+                                                CornerRadius="100" />
+                                        </VisualBrush.Visual>
+                                    </VisualBrush>
+                                </WrapPanel.OpacityMask>
+                            </WrapPanel>
+
+                            <Grid Grid.Column="1" Margin="5,5,5,0">
+                                <Viewbox MaxHeight="75" Stretch="Uniform">
+                                    <TextBlock
+                                        HorizontalAlignment="Center"
+                                        VerticalAlignment="Center"
+                                        DataContext="{Binding FindedFriend}"
+                                        FontSize="24"
+                                        Style="{DynamicResource AccentSearchText}"
+                                        Text="{Binding Nickname}"
+                                        TextWrapping="Wrap" />
+                                </Viewbox>
+
+                            </Grid>
+                            <Viewbox
+                                Grid.Row="1"
+                                Grid.Column="1"
+                                MaxHeight="75"
+                                Stretch="Uniform">
+                                <Button
+                                    Width="140"
+                                    Height="50"
+                                    Margin="30,0,30,15"
+                                    Command="{Binding AddFriendCommand}"
+                                    FontSize="20"
+                                    Style="{DynamicResource SearchButton}">
+                                    Добавить
+                                </Button>
+                            </Viewbox>
+
+                        </Grid>
+                    </Border>
+                </DockPanel>
+
+
+                <DockPanel Grid.Row="1">
+                    <TextBlock
+                        DockPanel.Dock="Top"
+                        Style="{DynamicResource Text}"
+                        Text="Заявки в друзья:" />
+                    <ListView
+                        Padding="-1"
+                        Background="{DynamicResource Thirdly}"
+                        BorderThickness="0"
+                        ItemContainerStyle="{DynamicResource FriendRequestItem}"
+                        ItemsSource="{Binding FriendsRequests}"
+                        ScrollViewer.CanContentScroll="True"
+                        ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+                        <ListView.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <UniformGrid Columns="1" />
+                            </ItemsPanelTemplate>
+                        </ListView.ItemsPanel>
+                    </ListView>
+                </DockPanel>
+            </Grid>
+        </Grid>
+    </Border>
 </Page>

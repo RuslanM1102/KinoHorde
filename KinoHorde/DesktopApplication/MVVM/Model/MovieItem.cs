@@ -12,6 +12,14 @@ namespace DesktopApplication.MVVM.Model
     {
         [Reactive] public Movie Movie { get; set; }
         [Reactive] public MovieGroups MovieGroups { get; set; }
-        [Reactive] public string Status { get; set; }
+        [Reactive] public WrappedEnum<MovieStatus> Status { get; set; }
+
+        public List<WrappedEnum<MovieStatus>> AllStatuses { get; set; } = new List<WrappedEnum<MovieStatus>>
+        {
+            new WrappedEnum<MovieStatus>(MovieStatus.Planned),
+            new WrappedEnum<MovieStatus>(MovieStatus.Watching),
+            new WrappedEnum<MovieStatus>(MovieStatus.Paused),
+            new WrappedEnum<MovieStatus>(MovieStatus.Done)
+        };
     }
 }

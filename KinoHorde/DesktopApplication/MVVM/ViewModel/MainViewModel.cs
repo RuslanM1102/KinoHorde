@@ -1,5 +1,6 @@
 ﻿using DesktopApplication.Core;
 using DesktopApplication.Core.Parser;
+using DesktopApplication.MVVM.Model;
 using Microsoft.Extensions.DependencyInjection;
 using ReactiveUI;
 using ReactiveUI.Fody.Helpers;
@@ -38,25 +39,35 @@ namespace DesktopApplication.MVVM.ViewModel
         public IReactiveCommand? HelpCommand { get; set; }
         #endregion
 
+
+        private readonly UserModel _user;
         [Reactive] public bool IsAuth { get; private set; }
 
-        public MainViewModel()
+        public MainViewModel(AuthViewModel authVM, FriendsViewModel friendsVM, GroupsViewModel groupsVM,
+            SearchViewModel searchVM, ProfileViewModel profileVM, UserModel user)
         {
             IsAuth = false;
 
+            AuthVM = authVM;
+            FriendsVM = friendsVM;
+            GroupsVM = groupsVM;
+            SearchVM = searchVM;
+            ProfileVM = profileVM;
+
+            _user = user;
+
             SetChromeCommands();
-            InitViewModels();
             SetViewTransitionCommands();
 
             CurrentView = AuthVM!;
 
-            AuthVM!.AuthSuccessed += () => { 
+           _user.SignedIn += () => { 
                 IsAuth = true;
-                ProfileVM.SetUser();
                 CurrentView = ProfileVM!;
             };
-            ProfileVM!.LogOuted += () => { 
-                IsAuth = false; CurrentView = AuthVM;
+            _user.SignedOut += () => { 
+                IsAuth = false; 
+                CurrentView = AuthVM;
             };
         }
 
@@ -65,7 +76,10 @@ namespace DesktopApplication.MVVM.ViewModel
             IObservable<bool> isAuth = this.WhenAnyValue(
                 x => x.IsAuth);
             ProfileCommand = ReactiveCommand.Create(() => CurrentView = IsAuth ? ProfileVM : AuthVM);
-            FriendsCommand = ReactiveCommand.Create(() => CurrentView = FriendsVM, isAuth);
+            FriendsCommand = ReactiveCommand.Create(() => {
+                CurrentView = FriendsVM;
+                FriendsVM.OnSelected?.Invoke();
+            }, isAuth);
             GroupsCommand = ReactiveCommand.Create(() => {
                 CurrentView = GroupsVM;
                 GroupsVM.OnSelected?.Invoke();
@@ -82,21 +96,12 @@ namespace DesktopApplication.MVVM.ViewModel
                     @"Для начала работы в программе необходимо авторизоваться через платформу Discord.
 После чего во вкладке 'Группы' необходимо присоединиться к существующей группе или создать свою.
 
-Внутри группы можно будет удалить кинопродукт из неё, поменять статус между 'В планах' и 'Просмотрено', а также удалить его.
+Внутри группы можно будет удалить кинопродукт из неё, поменять статус просмотра, а также удалить его.
                     
 Для добавления кинопродукта в список группы необходимо зайти во вкладку 'Поиск', найти его через поиск и, выбрав в нижнем левом углу нужную группу, нажать кнопку 'Добавить'.
                     
                 ");
             });
-        }
-
-        private void InitViewModels()
-        {
-            AuthVM = new AuthViewModel();
-            ProfileVM = new ProfileViewModel();
-            FriendsVM = new FriendsViewModel();
-            GroupsVM = new GroupsViewModel();
-            SearchVM = new SearchViewModel();
         }
 
         private void SetChromeCommands()

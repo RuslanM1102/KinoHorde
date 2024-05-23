@@ -13,7 +13,7 @@
         <DockPanel>
             <Border
                 Height="50"
-                Background="{DynamicResource Primary}"
+                Background="{DynamicResource Secondary}"
                 BorderBrush="{DynamicResource Accent}"
                 BorderThickness="0,0,0,5"
                 DockPanel.Dock="Top">
@@ -34,7 +34,7 @@
 
             <Border
                 Height="50"
-                Background="{DynamicResource Primary}"
+                Background="{DynamicResource Secondary}"
                 BorderBrush="{DynamicResource Accent}"
                 BorderThickness="0,5,0,0"
                 DockPanel.Dock="Bottom">
@@ -70,11 +70,9 @@
                     </StackPanel>
 
                     <ComboBox
-                        Background="{DynamicResource Primary}"
-                        Foreground="{DynamicResource Accent}"
-                        ItemContainerStyle="{DynamicResource ComboBoxItemStyle}"
                         ItemsSource="{Binding CurrentUserGroups}"
-                        SelectedValue="{Binding SelectedGroup}" />
+                        SelectedValue="{Binding SelectedGroup}"
+                        Style="{DynamicResource ComboBoxFlatStyle}" />
                 </Grid>
             </Border>
 

@@ -12,7 +12,7 @@
     <DockPanel>
         <Border
             Height="50"
-            Background="{DynamicResource Primary}"
+            Background="{DynamicResource Secondary}"
             BorderBrush="{DynamicResource Accent}"
             BorderThickness="0,5,0,0"
             DockPanel.Dock="Bottom">
@@ -23,9 +23,9 @@
                     FontSize="20"
                     Style="{DynamicResource SearchButton}" />
                 <Grid />-->
-                <Viewbox>
+                <!--<Viewbox>
                     <TextBlock Style="{DynamicResource AccentSearchText}" Text="{Binding Group.Id, StringFormat={}ID группы: {0}}" />
-                </Viewbox>
+                </Viewbox>-->
                 <Grid />
                 <Grid />
                 <Button

@@ -4,7 +4,7 @@
         <Setter Property="FocusVisualStyle" Value="{x:Null}" />
         <Setter Property="BorderBrush" Value="{DynamicResource Accent}" />
         <Setter Property="Background" Value="{DynamicResource Thirdly}" />
-        <Setter Property="FontFamily" Value="Comic Sans MS" />
+        <Setter Property="FontFamily" Value="Segoe UI" />
         <Setter Property="FontSize" Value="14" />
         <Setter Property="Foreground" Value="{DynamicResource Accent}" />
         <Setter Property="VerticalContentAlignment" Value="Center" />
@@ -17,7 +17,7 @@
                         Background="{TemplateBinding Background}"
                         BorderBrush="{TemplateBinding BorderBrush}"
                         BorderThickness="2"
-                        CornerRadius="7">
+                        CornerRadius="9,0,9,0">
                         <ScrollViewer x:Name="PART_ContentHost" Margin="0" />
                     </Border>
                 </ControlTemplate>
@@ -27,8 +27,8 @@
 
     <Style x:Key="SearchButton" TargetType="{x:Type Button}">
         <Setter Property="Margin" Value="5" />
-        <Setter Property="Background" Value="{DynamicResource Primary}" />
-        <Setter Property="Foreground" Value="{DynamicResource Secondary}" />
+        <Setter Property="Background" Value="{DynamicResource Secondary}" />
+        <Setter Property="Foreground" Value="{DynamicResource Accent}" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type Button}">
@@ -38,61 +38,38 @@
                         Padding="2"
                         Background="{TemplateBinding Background}"
                         BorderBrush="{TemplateBinding Foreground}"
-                        BorderThickness="2"
-                        CornerRadius="7">
+                        BorderThickness="2,0,2,0"
+                        CornerRadius="2">
                         <TextBlock
                             HorizontalAlignment="Center"
                             VerticalAlignment="Center"
                             FontFamily="{TemplateBinding FontFamily}"
                             FontSize="{TemplateBinding FontSize}"
                             Foreground="{TemplateBinding Foreground}"
-                            Text="{TemplateBinding Content}" />
+                            Text="{TemplateBinding Content}"
+                            TextWrapping="Wrap" />
                     </Border>
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
 
         <Style.Triggers>
+            <Trigger Property="IsEnabled" Value="False">
+                <Setter Property="Background" Value="{StaticResource Thirdly}" />
+                <Setter Property="BorderThickness" Value="0" />
+            </Trigger>
+
             <Trigger Property="IsMouseOver" Value="True">
-                <Setter Property="Foreground" Value="{StaticResource Accent}" />
+                <Setter Property="Foreground" Value="{StaticResource Primary}" />
             </Trigger>
         </Style.Triggers>
     </Style>
 
     <Style x:Key="AccentSearchText" TargetType="{x:Type TextBlock}">
         <Setter Property="Margin" Value="5" />
-        <Setter Property="Background" Value="{DynamicResource Primary}" />
         <Setter Property="Foreground" Value="{DynamicResource Accent}" />
         <Setter Property="HorizontalAlignment" Value="Center" />
         <Setter Property="VerticalAlignment" Value="Center" />
-    </Style>
-
-    <Style x:Key="ComboBoxItemStyle" TargetType="{x:Type ComboBoxItem}">
-        <Setter Property="BorderThickness" Value="0" />
-        <Setter Property="BorderBrush" Value="{DynamicResource Accent}" />
-
-        <Setter Property="Template">
-            <Setter.Value>
-                <ControlTemplate TargetType="ComboBoxItem">
-                    <Border
-                        Background="{DynamicResource Primary}"
-                        BorderBrush="{TemplateBinding BorderBrush}"
-                        BorderThickness="{TemplateBinding BorderThickness}">
-                        <TextBlock
-                            FontSize="20"
-                            Foreground="{DynamicResource Accent}"
-                            Text="{Binding Name}"
-                            TextAlignment="Center" />
-                    </Border>
-                </ControlTemplate>
-            </Setter.Value>
-        </Setter>
-
-        <Style.Triggers>
-            <Trigger Property="IsMouseOver" Value="True">
-                <Setter Property="BorderThickness" Value="2" />
-            </Trigger>
-        </Style.Triggers>
     </Style>
 
 </ResourceDictionary>

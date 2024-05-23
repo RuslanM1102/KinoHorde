@@ -13,7 +13,7 @@
         <Border
             MaxWidth="300"
             MaxHeight="400"
-            Background="{DynamicResource Primary}"
+            Background="{DynamicResource Thirdly}"
             CornerRadius="20">
             <Grid>
                 <Grid.RowDefinitions>
@@ -51,14 +51,14 @@
                         Style="{DynamicResource AccentSearchText}"
                         Text="{Binding User.Nickname}"
                         TextWrapping="Wrap" />
-                    <!--<TextBox
+                    <TextBox
                         Grid.Row="1"
                         HorizontalAlignment="Center"
-                        VerticalAlignment="Bottom"
+                        VerticalAlignment="Center"
                         FontSize="12"
                         IsReadOnly="True"
                         Style="{DynamicResource SearchBox}"
-                        Text="{Binding User.Id}" />-->
+                        Text="{Binding User.Id}" />
                 </Grid>
                 <Button
                     Grid.Row="2"

@@ -19,8 +19,9 @@ namespace DesktopApplication.MVVM.ViewModel
 {
     class SearchViewModel : ReactiveObject
     {
-        private SeleniumParser parser = ((App)App.Current).AppHost!.Services.GetRequiredService<SeleniumParser>();
-        private Supabase.Client _client = ((App)App.Current).AppHost!.Services.GetRequiredService<Supabase.Client>();
+        private readonly SeleniumParser _parser;
+        private readonly Supabase.Client _client;
+        private readonly UserModel _user;
 
         private int _maxPage;
         private string _search;
@@ -35,8 +36,11 @@ namespace DesktopApplication.MVVM.ViewModel
         public IReactiveCommand PreviousPageCommand { get; set; }
         public IReactiveCommand ClickCommand { get; set; }
 
-        public SearchViewModel()
+        public SearchViewModel(SeleniumParser parser, Supabase.Client client, UserModel user)
         {
+            _parser = parser;
+            _client = client;
+            _user = user;
             SetCommands();
         }
 
@@ -91,16 +95,23 @@ namespace DesktopApplication.MVVM.ViewModel
                         {
                             response = await _client.From<Movie>().Insert(film, new QueryOptions { Returning = ReturnType.Representation });
                         }
-                        catch { }
+                        catch (Exception ex)
+                        {
+                            var a = ex.Message;
+                        }
                     }
                     var movieGroup = new MovieGroups();
-                    var userResponse = await _client.From<User>().Where(x => x.IdSp == _client.Auth.CurrentUser!.Id).Get();
+                    var userResponse = _user.UserData;
 
                     movieGroup.MovieId = response.Model.Id;
                     movieGroup.GroupId = SelectedGroup.Id;
-                    movieGroup.StatusId = 1;
-                    movieGroup.UserId = userResponse.Model.Id;
-                    await _client.From<MovieGroups>().Insert(movieGroup);
+                    movieGroup.UserId = userResponse.Id;
+                    try
+                    {
+                        await _client.From<MovieGroups>().Insert(movieGroup);
+                    }
+                    catch (Exception ex)
+                    {                    }
                     MessageBox.Show("Фильм добавлен");
                 }
             });
@@ -108,15 +119,14 @@ namespace DesktopApplication.MVVM.ViewModel
 
         private async Task Search(int page = 1)
         {
-            Films = await parser.SearchFilms(_search,page);
-            MovieCount = parser.FoundCount;
+            Films = await _parser.SearchFilms(_search,page);
+            MovieCount = _parser.FoundCount;
             CurrentPage = page;
         }
 
         public async void UpdateGroups()
         {
-            var response = await _client.From<User>().Where(x => x.IdSp == _client.Auth.CurrentUser!.Id).Get();
-            User user = response.Model;
+            User user = _user.UserData;
 
             var userGroups= await _client.From<UserGroup>()
                 .Where(x => x.UserId == user.Id).Get();

@@ -1,4 +1,5 @@
 ﻿using DesktopApplication.Core.Database;
+using DesktopApplication.MVVM.Model;
 using Microsoft.Extensions.DependencyInjection;
 using ReactiveUI;
 using ReactiveUI.Fody.Helpers;
@@ -13,31 +14,36 @@ namespace DesktopApplication.MVVM.ViewModel
     class GroupsViewModel : ReactiveObject
     {
 
-        private Supabase.Client _client = ((App)App.Current).AppHost!.Services.GetRequiredService<Supabase.Client>();
+        private readonly Supabase.Client _client;
+        private readonly UserModel _user;
         public Action OnSelected { get; set; }
         [Reactive] public object? CurrentView { get; set; }
         public GroupCollectionViewModel? CollectionView { get; set; }
         public GroupCreateViewModel? CreateView { get; set; }
         public GroupJoinViewModel? JoinView { get; set; }
 
+        #region Commands
         public IReactiveCommand? CollectionCommand { get; set; }
         public IReactiveCommand? CreateCommand { get; set; }
         public IReactiveCommand? JoinCommand { get; set; }
         public IReactiveCommand LeaveCommand { get; set; }
+        #endregion
 
-
-        public GroupsViewModel()
+        public GroupsViewModel(Supabase.Client client, UserModel user)
         {
-            CollectionView = new GroupCollectionViewModel();
+            _client = client;
+            _user = user;
+
+            CollectionView = new GroupCollectionViewModel(client, user);
             CollectionView.OnGroupClicked += (args) => { CurrentView = new GroupViewModel((Group)args); };
 
-            CreateView = new GroupCreateViewModel();
+            CreateView = new GroupCreateViewModel(client, user);
             CreateView.OnCreated += () => {
                 CollectionView.SetGroups();
                 CurrentView = CollectionView;
             };
 
-            JoinView = new GroupJoinViewModel();
+            JoinView = new GroupJoinViewModel(_client, _user);
             JoinView.OnJoined += () => {
                 CollectionView.SetGroups();
                 CurrentView = CollectionView;
@@ -64,9 +70,7 @@ namespace DesktopApplication.MVVM.ViewModel
             {
                 if(arg is Group group)
                 {
-                    var response = await _client.From<User>().Where(x => x.IdSp == _client.Auth.CurrentUser!.Id).Get();
-                    User user = response.Model;
-
+                    User user = _user.UserData;
                     await _client.From<UserGroup>()
                         .Where(x => x.UserId == user.Id)
                         .Where(x => x.GroupId == group.Id)

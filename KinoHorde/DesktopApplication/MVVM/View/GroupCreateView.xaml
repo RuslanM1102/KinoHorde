@@ -34,24 +34,6 @@
                     Text="{Binding Name}" />
             </StackPanel>
 
-            <StackPanel Margin="5" Orientation="Horizontal">
-                <Border
-                    Height="50"
-                    Background="{DynamicResource Primary}"
-                    CornerRadius="10">
-                    <TextBlock
-                        Background="Transparent"
-                        FontSize="30"
-                        Style="{DynamicResource AccentSearchText}"
-                        Text="Пароль" />
-                </Border>
-                <TextBox
-                    Width="200"
-                    Height="50"
-                    Style="{DynamicResource SearchBox}"
-                    Text="{Binding Password}" />
-            </StackPanel>
-
             <Button
                 Height="50"
                 Command="{Binding CreateCommand}"

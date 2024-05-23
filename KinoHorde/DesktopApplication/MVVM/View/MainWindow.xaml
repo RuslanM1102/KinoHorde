@@ -17,10 +17,6 @@
     WindowStyle="None"
     mc:Ignorable="d">
 
-    <Window.DataContext>
-        <vms:MainViewModel />
-    </Window.DataContext>
-
     <WindowChrome.WindowChrome>
         <WindowChrome CaptionHeight="30" ResizeBorderThickness="5" />
     </WindowChrome.WindowChrome>
@@ -75,6 +71,13 @@
                             Style="{StaticResource SelectPageButton}" />
                         <RadioButton
                             Height="{Binding ElementName=NavigationBar, Path=Width}"
+                            ext:Extensions.ImageSource="pack://application:,,,/../../Core/Styles/Icons/NavBar/Friends.png"
+                            Command="{Binding FriendsCommand}"
+                            Content="Friends"
+                            GroupName="Views"
+                            Style="{StaticResource SelectPageButton}" />
+                        <RadioButton
+                            Height="{Binding ElementName=NavigationBar, Path=Width}"
                             ext:Extensions.ImageSource="pack://application:,,,/../../Core/Styles/Icons/NavBar/Groups.png"
                             Command="{Binding GroupsCommand}"
                             Content="Groups"
@@ -86,17 +89,10 @@
                             Command="{Binding SearchCommand}"
                             GroupName="Views"
                             Style="{StaticResource SelectPageButton}" />
-                        <!--<RadioButton
-                            Height="{Binding ElementName=NavigationBar, Path=Width}"
-                            ext:Extensions.ImageSource="pack://application:,,,/../../Core/Styles/Icons/NavBar/Friends.png"
-                            Command="{Binding FriendsCommand}"
-                            Content="Friends"
-                            GroupName="Views"
-                            Style="{StaticResource SelectPageButton}" />-->
-                        <Button
+                        <!--<Button
                             Command="{Binding HelpCommand}"
                             Content="Справка"
-                            Style="{DynamicResource SearchButton}" />
+                            Style="{DynamicResource SearchButton}" />-->
                     </StackPanel>
                 </Grid>
             </Border>

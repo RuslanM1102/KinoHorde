@@ -7,29 +7,26 @@ using DesktopApplication.Core.Database;
 using System.Collections.Generic;
 using System.Linq;
 using ReactiveUI.Fody.Helpers;
+using DesktopApplication.MVVM.Model;
 
 namespace DesktopApplication.MVVM.ViewModel
 {
     class ProfileViewModel : ReactiveObject
     {
-        private Supabase.Client _client = ((App)App.Current).AppHost!.Services.GetRequiredService<Supabase.Client>();
-        public Action LogOuted { get; set; }
         public IReactiveCommand LogOutCommand { get; set; }
         [Reactive] 
-        public User User { get; set; }
-        public ProfileViewModel()
+        public User User { get; private set; }
+
+        private readonly UserModel _user;
+        public ProfileViewModel(UserModel user)
         {
+            _user = user;
+            _user.UserDataChanged += () => User = _user.UserData;
             LogOutCommand = ReactiveCommand.CreateFromTask(async () =>
             {
-                _client.Auth.SignOut();
-                LogOuted?.Invoke();
+                _user.SignOut();
             });
         }
 
-        public async void SetUser()
-        {
-            var response = await _client.From<User>().Where(x => x.IdSp == _client.Auth.CurrentUser!.Id).Get();
-            User = response.Model;
-        }
     }
 }

@@ -1,4 +1,5 @@
-﻿using DesktopApplication.Core.Database;
+﻿using DesktopApplication.Core;
+using DesktopApplication.Core.Database;
 using DesktopApplication.MVVM.Model;
 using Microsoft.Extensions.DependencyInjection;
 using ReactiveUI;
@@ -31,17 +32,12 @@ namespace DesktopApplication.MVVM.ViewModel
             {
                 if (arg is MovieItem item) 
                 {
-                    item.MovieGroups.StatusId = item.MovieGroups.StatusId == 1 ? 2:1;
-                    item.Status = item.MovieGroups.StatusId == 1 ? "В планах" : "Просмотрено";
-                     await _client.From<MovieGroups>()
-                    .Where(x => x.GroupId == item.MovieGroups.GroupId)
-                    .Where(x => x.MovieId == item.MovieGroups.MovieId)
-                    .Set(x => x.StatusId, item.MovieGroups.StatusId)
-                    .Update();
-
-                    var i = Movies.IndexOf(item);
-                    Movies.Remove(item);
-                    Movies.Insert(i, item);
+                    item.MovieGroups.Status = item.Status.Unwrapped;
+                    await _client.From<MovieGroups>()
+                       .Where(x => x.GroupId == item.MovieGroups.GroupId)
+                       .Where(x => x.MovieId == item.MovieGroups.MovieId)
+                       .Set(x => x.Status, item.MovieGroups.Status)
+                       .Update();
                 }
             });
 
@@ -74,7 +70,7 @@ namespace DesktopApplication.MVVM.ViewModel
             {
                 var item = new MovieItem();
                 item.MovieGroups = movieGroup;
-                item.Status = item.MovieGroups.StatusId == 1 ? "В планах" : "Просмотрено";
+                item.Status = new WrappedEnum<MovieStatus>(item.MovieGroups.Status);
                 item.Movie = response.Models.Where(x=> x.Id == movieGroup.MovieId).First();
                 Movies.Add(item);
             }

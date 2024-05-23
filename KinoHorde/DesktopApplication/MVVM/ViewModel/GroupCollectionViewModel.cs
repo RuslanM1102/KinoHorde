@@ -1,4 +1,5 @@
 ﻿using DesktopApplication.Core.Database;
+using DesktopApplication.MVVM.Model;
 using Microsoft.Extensions.DependencyInjection;
 using ReactiveUI;
 using ReactiveUI.Fody.Helpers;
@@ -16,14 +17,17 @@ namespace DesktopApplication.MVVM.ViewModel
 {
     public class GroupCollectionViewModel
     {
-        private Supabase.Client _client = ((App)App.Current).AppHost!.Services.GetRequiredService<Supabase.Client>();
+        private readonly Supabase.Client _client;
+        private readonly UserModel _user;
         public ObservableCollection<Group> Groups { get; private set; }
         public IReactiveCommand? ClickCommand { get; set; }
         public Action<object> OnGroupClicked { get; set; }
-        public GroupCollectionViewModel()
+        public GroupCollectionViewModel(Supabase.Client client, UserModel user)
         {
-            Groups = new ObservableCollection<Group>();
+            _client = client;
+            _user = user;
 
+            Groups = new ObservableCollection<Group>();
             ClickCommand = ReactiveCommand.Create<object>((args) => 
             { 
                 OnGroupClicked?.Invoke(args);
@@ -35,13 +39,11 @@ namespace DesktopApplication.MVVM.ViewModel
             var groupResponse = await _client.From<Group>().Get();
             var userGroupsResponse = await _client.From<UserGroup>().Get();
 
-            var response = await _client.From<User>().Where(x => x.IdSp == _client.Auth.CurrentUser!.Id).Get();
-            User user = response.Model;
-
+            User user = _user.UserData;
             var groupsID = userGroupsResponse.Models.Where(u => u.UserId == user.Id).Select(x => x.GroupId).ToList();
 
             Groups.Clear();
-            foreach(var  group in groupResponse.Models.Where(x => groupsID.Contains(x.Id)))
+            foreach(var group in groupResponse.Models.Where(x => groupsID.Contains(x.Id)))
             { 
                 Groups.Add(group);
             }

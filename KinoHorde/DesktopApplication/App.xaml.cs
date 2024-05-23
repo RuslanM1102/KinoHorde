@@ -1,5 +1,7 @@
 ﻿using DesktopApplication.Core.Parser;
+using DesktopApplication.MVVM.Model;
 using DesktopApplication.MVVM.View;
+using DesktopApplication.MVVM.ViewModel;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using ReactiveUI;
@@ -27,8 +29,6 @@ namespace DesktopApplication
             AppHost = Host.CreateDefaultBuilder()
             .ConfigureServices((hostContext, services) =>
             {
-                services.AddSingleton<MainWindow>();
-                services.AddSingleton<SeleniumParser>();
                 services.AddSingleton<Client>(provider =>
                 {
                     var url = "https://ezwghqlbausbbiukjipo.supabase.co";
@@ -42,6 +42,19 @@ namespace DesktopApplication
                     var client = new Client(url, key, options);
                     return client;
                 });
+                services.AddSingleton<SeleniumParser>();
+                services.AddSingleton<UserModel>();
+
+                services.AddSingleton<AuthViewModel>();
+                services.AddSingleton<FriendsViewModel>();
+                services.AddSingleton<GroupsViewModel>();
+                services.AddSingleton<SearchViewModel>();
+                services.AddSingleton<ProfileViewModel>();
+
+
+                services.AddSingleton<MainViewModel>();
+
+                services.AddSingleton<MainWindow>(s => new MainWindow(s.GetRequiredService<MainViewModel>()));
             })
             .Build();
         }
@@ -61,7 +74,6 @@ namespace DesktopApplication
             AppHost!.Dispose();
             base.OnExit(e);
         }
-
 
         private void OnDispatcherUnhandledException(object sender, DispatcherUnhandledExceptionEventArgs e)
         {
